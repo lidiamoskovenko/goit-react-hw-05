@@ -36,7 +36,7 @@ export default function MovieDetails() {
 
   return (
     <>
-       <BackLink to={backLinkHref.current ?? "/movies"}>Go back</BackLink>
+       <BackLink to={backLinkHref}>Go back</BackLink>
 
       {loading && <Loader />}
       {error && <ErrorMessage />}
