@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { fetchData } from '../../Api';
 import { Loader } from '../../components/Loader/Loader';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
+import { MovieList } from '../../components/MovieList/MovieList';
 
 export default function MoviesPage() {
   const [searchFilm, setSearchFilm] = useState([]);
@@ -12,8 +13,8 @@ export default function MoviesPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const movie = searchParams.get('query') ?? '';
-  const location = useLocation();
+  const NameMovie = searchParams.get('query') ?? '';
+  
 
   const searchMovies = async query => {
     try {
@@ -31,20 +32,12 @@ export default function MoviesPage() {
 
   return (
     <>
-      <SearchBar value={movie} onSearch={searchMovies} />
+      <SearchBar value={NameMovie} onSearch={searchMovies} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
-      {searchFilm ? (
-  <div>
-    {searchFilm.map(movie => (
-      <Link key={movie.id} to={`${movie.id}`} state={{ from: location }}>
-        <li>{movie.title}</li>
-      </Link>
-    ))}
-  </div>
-) : (
-  <p>Not found</p>
-)}
+      {searchFilm.length >0 && <MovieList films={searchFilm} />}
     </>
   );
 }
+
+
