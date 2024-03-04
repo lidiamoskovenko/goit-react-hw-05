@@ -12,7 +12,9 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  
+  // const location = useLocation();
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +35,7 @@ const HomePage = () => {
       <h2 className={css.title}>In Trend today</h2>
       {error && <ErrorMessage />}
       {loading && <Loader/>}
-      {films.length > 0 && <MovieList films={films} />}
+      {films.length > 0 && <MovieList films={films}/>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
-import { Navbar } from '../Novigation/Navbar';
+import { Novigation } from '../Novigation/Novigation';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const MoviesPage = lazy(() => import('../../pages/MoviesPage/MoviesPage'));
@@ -12,7 +12,7 @@ const MovieReviews = lazy(() => import('../MovieReviews/MovieReviews'));
 const App = () => {
   return (
       <Suspense fallback={<div>Loading subpage...</div>}>
-         <Navbar />
+         <Novigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />

@@ -1,5 +1,5 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense,useRef} from 'react';
 import {fetchFilmById  } from '../../Api';
 import { BackLink } from '../../components/BackLink/BackLink';
 import { Loader } from '../../components/Loader/Loader';
@@ -12,7 +12,7 @@ export default function MovieDetails() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? `/movies/`;
+  const backLinkHref = useRef(location.state);
 
   useEffect(() => {
     const fetchMovieData = async () => {
@@ -36,7 +36,7 @@ export default function MovieDetails() {
 
   return (
     <>
-       <BackLink to={backLinkHref}>Go back</BackLink>
+       <BackLink to={backLinkHref.current ?? "/movies"}>Go back</BackLink>
 
       {loading && <Loader />}
       {error && <ErrorMessage />}
@@ -67,12 +67,12 @@ export default function MovieDetails() {
       <h3 className={css.addInfo}>Additional information</h3>
       <ul className={css.details}>
         <li>
-          <Link to={`cast`} state={{ from: location }}>
+          <Link to={`cast`} >
             Cast
           </Link>
         </li>
         <li>
-          <Link to={`reviews`} state={{ from: location }}>
+          <Link to={`reviews`} >
             Reviews
           </Link>
         </li>
